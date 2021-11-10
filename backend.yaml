@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: unlimitedbiking/ubms-backend
+        ports:
+        - containerPort: 8000
+        env:
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-configmap
+              key: database_url
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-configmap
+              key: database_port
+        - name: POSTGRES_DB
+          value: ubms
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: postgres-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: postgres-password
+        - name: DEBUG
+          value: "True"
+        - name: SECRET_KEY
+          value: 6$hxy=)9wp$2i!x!$_7y=wg(u+5h0hkhh1l1@ct+vi8+7bqgtl
+        - name: ALLOWED_HOSTS
+          value: 127.0.0.1
+        - name: FRONTEND_URL
+          value: http://127.0.0.1:8080
+        - name: SENDGRID_API_KEY
+          value: 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
+        - name: REVIEW_UNSUBSCRIBE_GROUP_ID
+          value: "28958"
+        - name: REVIEW_TEMPLATE_ID
+          value: d-4c59562c2248406fb2e3d1e795011ec3
+        - name: REVIEW_SENDER
+          value: murat.ocak@aktivite.com
+        - name: TWILIO_ACCOUNT_SID
+          value: ACd68e4585a42082521a7fd2211126b4c2
+        - name: TWILIO_AUTHTOKEN
+          value: 0e55f0b612dfa9db0b977e4809a3004c
+        - name: TWILIO_PHONENUMBER
+          value: "+15005550006"
+        - name: SENDGRID_REVIEW_UNSUBSCRIBE_GROUP_ID
+          value: "2"
+        - name: SENDGRID_REVIEW_TEMPLATE_ID
+          value: "1"
+        - name: SENDGRID_REVIEW_SENDER
+          value: omerorhan@hotmail.com
+        - name: TWILIO_MESSAGING_SERVICE_SID
+          value: MGdff2726ec3c42d8f5e1a941002c9c1d1

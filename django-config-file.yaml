@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: django-config-file
+data:
+  .env: |
+    DEBUG=True
+    SECRET_KEY=6$hxy=)9wp$2i!x!$_7y=wg(u+5h0hkhh1l1@ct+vi8+7bqgtl
+
+    ALLOWED_HOSTS=127.0.0.1
+    FRONTEND_URL=http://127.0.0.1:8080
+    # CORS_ALLOWED_ORIGINS=http://127.0.0.1:8080
+
+    # sendgrid
+    # SENDGRID_API_KEY=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
+    SENDGRID_API_KEY=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
+    SENDGRID_REVIEW_UNSUBSCRIBE_GROUP_ID=28958
+    SENDGRID_REVIEW_TEMPLATE_ID=d-4c59562c2248406fb2e3d1e795011ec3
+    SENDGRID_REVIEW_SENDER=murat.ocak@aktivite.com
+
+    # twilio
+    TWILIO_ACCOUNT_SID=AC32f0a4ee17362962b8e699d2a97278df
+    TWILIO_AUTHTOKEN=79543b99bdf6a8c3f943f51883a47184
+    TWILIO_MESSAGING_SERVICE_SID=MGdff2726ec3c42d8f5e1a941002c9c1d1

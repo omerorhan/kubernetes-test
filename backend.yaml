@@ -13,10 +13,22 @@ spec:
     metadata:
       labels:
         app: backend
+        pv: local
     spec:
+      imagePullSecrets:
+      - name: regcred
+      volumes:
+      - name: static-volume
+        persistentVolumeClaim:
+          claimName: backend-pvc
       containers:
       - name: backend
-        image: unlimitedbiking/ubms-backend
+        image: unlimitedbiking/review-backend
+        volumeMounts:
+        - mountPath: "/home/app/web/staticfiles"
+          name: static-volume
+        command: [ "gunicorn" ]
+        args: ["ubms.wsgi:application", "--bind", "0.0.0.0:8000"]
         ports:
         - containerPort: 8000
         env:

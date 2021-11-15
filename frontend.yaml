@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend
+  labels:
+    role: frontend
+spec:
+  imagePullSecrets:
+    - name: regcred
+  volumes:
+    - name: static-volume
+      persistentVolumeClaim:
+        claimName: backend-pvc
+  containers:
+    - name: frontend
+      image: unlimitedbiking/review-frontend
+      args: ["nginx", "-g", "daemon off;"]
+      ports:
+        - name: web
+          containerPort: 80
+          protocol: TCP
+      volumeMounts:
+        - name: static-volume
+          mountPath: "/app/dist"
+          subPath: "frontend"

@@ -9,14 +9,6 @@ data:
     }
 
     server {
-
-        listen      80;
-        server_name "";
-        return      444;
-    }
-
-    server {
-
         listen 80;
 
         server_name admin.unlimitedbiking.com;

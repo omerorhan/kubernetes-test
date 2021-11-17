@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: frontend
   labels:
-    role: frontend
+    app: frontend
 spec:
   imagePullSecrets:
     - name: regcred
@@ -14,12 +14,8 @@ spec:
   containers:
     - name: frontend
       image: unlimitedbiking/review-frontend
-      args: ["nginx", "-g", "daemon off;"]
-      ports:
-        - name: web
-          containerPort: 80
-          protocol: TCP
+      command: ["sh", "-c", "cp -r /app/dist/. /app/data"]
+#      command: ['sh', '-c', 'echo The app is running! && sleep 3600']
       volumeMounts:
         - name: static-volume
-          mountPath: "/app/dist"
-          subPath: "frontend"
+          mountPath: "/app/data"

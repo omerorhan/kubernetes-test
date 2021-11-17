@@ -4,4 +4,4 @@ metadata:
   name: local-storage-class
 provisioner: k8s.io/minikube-hostpath
 volumeBindingMode: Immediate
-reclaimPolicy: Retain
+reclaimPolicy: Delete

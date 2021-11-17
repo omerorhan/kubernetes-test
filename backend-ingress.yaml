@@ -2,18 +2,26 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: backend-ingress
-  namespace: default
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+#  tls:
+#  - hosts:
+#    - dev.unlimitedbiking.com
+#    secretName: backend-secret-tls
   rules:
-  - host: admin.unlimitedbiking.com
+  - host: dev.unlimitedbiking.com
     http:
       paths:
       - path: "/"
         pathType: Prefix
         backend:
           service:
-            name: backend-service
+            name: nginx-service
             port:
-              number: 8000
+              number: 80
+      - path: "/app"
+          pathType: Prefix
+          backend:
+            service:
+              name: nginx-service
+              port:
+                number: 80
